@@ -1,0 +1,105 @@
+import java.util.Scanner;
+class Student {
+    int roll;
+    String name;
+    Student next;
+
+    Student(int roll, String name) {
+        this.roll = roll;
+        this.name = name;
+        this.next = null;
+    }
+}
+
+public class Main {
+    private static Student head = null;
+
+    public static void insertStudent(int roll, String name) {
+        Student newStudent = new Student(roll, name);
+        newStudent.next = head;
+        head = newStudent;
+        System.out.println("Student inserted successfully.");
+    }
+
+    public static void displayStudents() {
+        if (head == null) {
+            System.out.println("No student records found.");
+            return;
+        }
+        Student temp = head;
+        while (temp != null) {
+            System.out.println("Roll: " + temp.roll + ", Name: " + temp.name);
+            temp = temp.next;
+        }
+    }
+
+    public static void deleteStudent(int roll) {
+        Student temp = head, prev = null;
+        while (temp != null && temp.roll != roll) {
+            prev = temp;
+            temp = temp.next;
+        }
+        if (temp == null) {
+            System.out.println("Student not found.");
+            return;
+        }
+        if (prev == null) {
+            head = temp.next;
+        } else {
+            prev.next = temp.next;
+        }
+        System.out.println("Student deleted successfully.");
+    }
+
+    public static void searchStudent(int roll) {
+        Student temp = head;
+        while (temp != null) {
+            if (temp.roll == roll) {
+                System.out.println("Found Student -> Roll: " + temp.roll + ", Name: " + temp.name);
+                return;
+            }
+            temp = temp.next;
+        }
+        System.out.println("Student not found.");
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int choice, roll;
+        String name;
+
+        while (true) {
+            System.out.println("\n1. Insert Student\n2. Display Students\n3. Delete Student\n4. Search Student\n0. Exit\nEnter choice: ");
+            choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.println("Enter roll: ");
+                    roll = scanner.nextInt();
+                    scanner.nextLine(); // Consume newline
+                    System.out.println("Enter name: ");
+                    name = scanner.nextLine();
+                    insertStudent(roll, name);
+                    break;
+                case 2:
+                    displayStudents();
+                    break;
+                case 3:
+                    System.out.println("Enter roll to delete: ");
+                    roll = scanner.nextInt();
+                    deleteStudent(roll);
+                    break;
+                case 4:
+                    System.out.println("Enter roll to search: ");
+                    roll = scanner.nextInt();
+                    searchStudent(roll);
+                    break;
+                case 0:
+                    scanner.close();
+                    return;
+                default:
+                    System.out.println("Invalid choice. Try again.");
+            }
+        }
+    }
+}
