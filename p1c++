@@ -1,0 +1,82 @@
+//programme-1
+#include<bits/stdc++.h>
+using namespace std;
+bool prime(int x){
+    int a=0;
+for(int i=2;i<=x-1;i++){
+if(x%i==0){
+    a=1;
+    break;
+}
+}
+if(x==1) return false;
+else if (a==0) return true;
+else return false;
+}
+int main(){
+int x=100;
+while(x!=0){
+cout<<endl;
+cout<<"1.prime number"<<endl;
+cout<<"2.fibonacci number"<<endl;
+cout<<"3.star pattern"<<endl;
+cout<<"0.Exit"<<endl;
+int ch;
+cout<<"Enter your choice"<<endl;
+cin>>ch;
+int x=100;
+    if(ch==1){
+        int a;
+        cout<<"give the value of a ";
+        cin>>a;
+        int b;
+        cout<<"give the value of b ";
+        cin>>b;
+        for(int i=a;i<=b;i++){
+            if(prime(i)){
+                cout<<i<<endl;
+            }
+        }
+        }
+        
+        if(ch==2){
+        int n;
+        cout<<"Enter the value of n"<<endl;
+        cin>>n;
+        int a=1;
+        int b=1;
+        int sum=1;
+        cout<<1<<" "<<1<<" ";
+        for(int i=1;i<=n-2;i++){
+           sum =a+b;
+           a=b;
+           b=sum;
+           cout<<sum<<" ";
+        }
+        }
+        
+        if(ch==3){
+        int rows;
+        cout<<"Enter the number of rows"<<endl;
+        cin>>rows;
+         // first loop to print all rows
+         for (int i = 0; i < rows; i++) {
+        
+            // inner loop 1 to print white spaces
+            for (int j = 0; j < 2 * (rows - i) - 1; j++) {
+                cout<<" ";
+            }
+        
+            // inner loop 2 to print star * character
+            for (int k = 0; k <=i; k++) {
+                cout<<" * ";
+            }
+            cout<<endl;
+        }
+        }
+        if(ch==0){
+            cout<<"EXIT"<<endl;
+        }
+}
+    return 0;
+}
