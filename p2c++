@@ -1,0 +1,91 @@
+#include <bits/stdc++.h>
+using namespace std;
+struct Student {
+    int roll;
+    string name;
+    Student* next;
+};
+Student* head = nullptr;
+void insertStudent(int roll, string name) {
+    Student* newStudent = new Student{roll, name, head};
+    head = newStudent;
+    cout << "Student inserted successfully.\n";
+}
+
+void displayStudents() {
+    if (head==NULL) {
+        cout << "No student records found.\n";
+        return;
+    }
+    Student* temp = head;
+    while (temp) {
+        cout << "roll: " << temp->roll<< ", Name: " << temp->name<< endl;
+        temp = temp->next;
+    }
+}
+
+void deleteStudent(int roll) {
+    Student* temp = head, *prev = nullptr;
+    while (temp && temp->roll!=roll) {
+        prev = temp;
+        temp = temp->next;
+    }
+    if (temp==NULL) {
+        cout << "Student not found.\n";
+        return;
+    }
+    if (prev==NULL) head = temp->next;
+    else prev->next = temp->next;
+    
+    delete temp;
+    cout << "Student deleted successfully.\n";
+}
+
+void searchStudent(int roll) {
+    Student* temp = head;
+    while (temp) {
+        if (temp->roll==roll) {
+            cout << "Found Student ->roll: " << temp->roll<< ", Name: " << temp->name<< endl;
+            return;
+        }
+        temp = temp->next;
+    }
+    cout << "Student not found.\n";
+}
+
+int main() {
+    int choice, roll;
+    string name;
+    
+    while (true) {
+        cout << "\n1. Insert Student\n2. Display Students\n3. Delete Student\n4. Search Student\n0. Exit\nEnter choice: ";
+        cin >> choice;
+        
+        switch (choice) {
+            case 1:
+                cout << "Enter roll: ";
+                cin>>roll;
+                cout << "Enter name: ";
+                cin>>name;           
+                insertStudent(roll, name);
+                break;
+            case 2:
+                displayStudents();
+                break;
+            case 3:
+                cout << "Enter roll to delete: ";
+                cin >>roll;
+                deleteStudent(roll);
+                break;
+            case 4:
+                cout << "Enter roll to search: ";
+                cin >>roll;
+                searchStudent(roll);
+                break;
+            case 0:
+                return 0;
+            default:
+                cout << "Invalid choice. Try again.\n";
+        }
+    }
+}
